@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  let(:product) { Product.new(name: "Test product", price: 10.5, balance: 1) }
+  #let(:product) { Product.new(name: "Test product", price: 10.5, balance: 1) }
+  let(:product) { FactoryBot.build(:product) }
   let(:empty_product) { Product.new }
 
   context  "positive validation" do

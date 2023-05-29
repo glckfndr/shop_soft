@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  let(:order) { Order.new(firstname: "Oleh", lastname: "Bulanchuk", address: "Lisova 12/13", phone: "0967856663") }
+  let(:order) {  FactoryBot.build(:order) }
   let(:empty_order) { Order.new }
 
   context  "positive validation" do
