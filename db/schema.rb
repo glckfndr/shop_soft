@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_26_083856) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_29_124312) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_083856) do
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_product_orders_on_order_id"
     t.index ["product_id"], name: "index_product_orders_on_product_id"
-    t.check_constraint "amount >= 0", name: "quantity_non_negative"
+    t.check_constraint "amount > 0", name: "amount_greater_zerro"
   end
 
   create_table "products", force: :cascade do |t|
@@ -41,6 +41,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_083856) do
     t.integer "balance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.check_constraint "balance >= 0", name: "balance_non_negative"
+    t.check_constraint "price >= 0::numeric", name: "price_non_negative"
   end
 
   add_foreign_key "product_orders", "orders"

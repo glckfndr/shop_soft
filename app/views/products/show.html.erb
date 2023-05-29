@@ -2,10 +2,8 @@
 
 <div>
 <table id='product_tbl' class="minimal-table">
-  <thead>
-      <%= create_table_header %w[Атрибут Значення] %>
-  </thead>
-<tbody>
+    <%= thead_tag %w[Атрибут Значення] %>
+  <tbody>
   <% @product.attributes.each do |attr_name, attr_value| %>
     <tr>
         <td> <strong><%= attr_name.capitalize %>:</strong> </td>
@@ -16,4 +14,4 @@
 </table>
 </div>
 
-<%= link_to "Back", products_path  %>
+<%= link_to "Back", products_path, class:  "text-blue-500 hover:text-blue-700 underline"  %>
