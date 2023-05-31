@@ -1,7 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe ProductOrder, type: :model do
-  let(:product_order) { create(:product_order) }
+  let(:product) { create(:product) }
+  let(:order) { create(:order) }
+  let(:product_order) { create(:product_order, product: product, order: order) }
+
+  context 'associations' do
+    it 'belongs to a product' do
+      expect(product_order.product).to eq(product)
+    end
+
+    it 'belongs to an order' do
+      expect(product_order.order).to eq(order)
+    end
+  end
 
   context  "positive validation" do
     it "is valid with a product, order and amount" do
@@ -30,4 +42,8 @@ RSpec.describe ProductOrder, type: :model do
       expect(product_order).to_not be_valid
     end
   end
+
+
+
+
 end

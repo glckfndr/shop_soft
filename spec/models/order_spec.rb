@@ -1,8 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  let(:order) {  FactoryBot.build(:order) }
+  let(:order) { create(:order) }
   let(:empty_order) { Order.new }
+  let!(:product_orders) { create_list(:product_order, 5, order: order) }
+
+  context 'associations' do
+    it 'has many product_orders' do
+      association = described_class.reflect_on_association(:product_orders)
+      expect(association.macro).to eq(:has_many)
+    end
+
+    it 'creates the associated product_orders' do
+      expect(order.product_orders.count).to eq(5)
+    end
+
+    it 'destroys associated product_orders' do
+      expect { order.destroy }.to change(ProductOrder, :count).by(-5)
+    end
+  end
 
   context  "positive validation" do
     it "is valid with a firstname, lastname, address, and phone" do
@@ -35,5 +51,4 @@ RSpec.describe Order, type: :model do
       expect(empty_order).to_not be_valid
     end
   end
-
 end
