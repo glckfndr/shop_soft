@@ -26,23 +26,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_29_124312) do
   create_table "product_orders", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "order_id", null: false
-    t.integer "amount", null: false
+    t.integer "amount", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_product_orders_on_order_id"
     t.index ["product_id"], name: "index_product_orders_on_product_id"
-    t.check_constraint "amount > 0", name: "amount_greater_zerro"
+    t.check_constraint "amount > 0"
   end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.decimal "price"
-    t.integer "balance"
+    t.decimal "price", default: "0.0"
+    t.integer "balance", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.check_constraint "balance >= 0", name: "balance_non_negative"
-    t.check_constraint "price >= 0::numeric", name: "price_non_negative"
+    t.check_constraint "balance >= 0"
+    t.check_constraint "price >= 0::numeric"
   end
 
   add_foreign_key "product_orders", "orders"
