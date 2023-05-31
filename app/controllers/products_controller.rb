@@ -1,11 +1,10 @@
 class ProductsController < ApplicationController
-  before_action :find, only: [:show, :edit, :update, :destroy]
-
   def index
-    @products = Product.all
+    @products = collection
   end
-  
-  def show     
+
+  def show
+    @product = resource
   end
 
   def new
@@ -13,38 +12,43 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    @product = resource
   end
-  
+
   def create
-    @product = Product.new get_permition
+    @product = Product.new product_params
     if @product.save
-      redirect_to product_path(@product)
+      redirect_to product_path(@product), notice: "The product was successfully created."
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    if @product.update get_permition
-      redirect_to product_path(@product)
+    @product = resource
+    if @product.update product_params
+      redirect_to product_path(@product), notice: "The product was successfully updated."
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
+    @product = resource
     @product.destroy
-    redirect_to products_path
+    redirect_to products_path, notice: "The product was successfully destroyed."
   end
-  
+
   private
-  def get_permition
+  def product_params
     params.require(:product).permit(:name, :description, :price, :balance)
   end
 
-  def find()
-    @product = Product.find(params[:id])
+  def collection
+    Product.all
   end
-  
 
+  def resource
+    Product.find(params[:id])
+  end
 end

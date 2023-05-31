@@ -30,5 +30,4 @@ RSpec.describe ProductOrder, type: :model do
       expect(product_order).to_not be_valid
     end
   end
-
 end

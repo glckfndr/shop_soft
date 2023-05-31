@@ -1,18 +1,17 @@
-<div>
-<h1 class="text-3xl"> Product Table</h1>
-<%= link_to 'Create New Product', new_product_path,   class:  "text-blue-500 hover:text-blue-700 underline" %>
-<div>
-
-<table id='product_table' class="minimal-table">
-    <%= thead_tag %w[# Товар Опис Ціна Кількість Дія] %>
+<table id='product_table' class="border border-collapse table-fixed border-slate-500 bg-slate-300 caption-top">
+<caption class="text-white bg-slate-800">
+ <h2>Product Table</h2>
+<div><%= link_to 'Create New Product', new_product_path %></div>
+    <%= thead_tag "#", "Товар", "Опис", "Ціна",  "Кількість", "Дія" %>
+     </caption>
   <tbody>
     <% @products.each do |product|   %>
       <tr>
         <%= row_tag(product, :id, :name, :description, :price, :balance) %>
-        <td>
-          <%= link_to 'Show', product_path(product) %>
-          <%= link_to 'Edit', edit_product_path(product) %>
-          <%= link_to 'Destroy', product_path(product), data: {  turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+         <td class="border border-slate-700">
+          <%= link_to 'Show', product_path(product), class: "text-blue-500 hover:text-blue-700 underline" %>
+          <%= link_to 'Edit', edit_product_path(product), class: "text-blue-500 hover:text-blue-700 underline" %>
+          <%= link_to 'Destroy', product_path(product), data: {  turbo_method: :delete, turbo_confirm: "Are you sure?" },class: "text-blue-500 hover:text-blue-700 underline"%>
         </td>
       </tr>
     <% end %>
