@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_29_124312) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_31_065135) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "orders", force: :cascade do |t|
-    t.string "firstname"
-    t.string "lastname"
-    t.string "address"
-    t.string "phone"
+    t.string "firstname", null: false
+    t.string "lastname", null: false
+    t.string "address", null: false
+    t.string "phone", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -35,10 +35,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_29_124312) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.text "description"
-    t.decimal "price", default: "0.0"
-    t.integer "balance", default: 0
+    t.decimal "price", default: "0.0", null: false
+    t.integer "balance", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.check_constraint "balance >= 0"
